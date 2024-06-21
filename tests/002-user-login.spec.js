@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { mailinatorDomain } from '../utils/mailinator-client.mjs'
 
 test.describe("Log-in flow", () => {
   test("Successfully log in to account", async ({ page, browserName }) => {
@@ -7,7 +8,8 @@ test.describe("Log-in flow", () => {
     await page.getByText('Log in', { exact: true }).click();
 
     // fill out log-in form & submit
-    await page.fill('input[name="username"]', `brad.deibert+e2e_${browserName}@submittable.com`);
+    const testEmail = `e2e_test_${browserName}@${mailinatorDomain}`;
+    await page.fill('input[name="username"]', testEmail);
     await page.getByText('Continue', { exact: true }).click();
 
     // set password for account & submit

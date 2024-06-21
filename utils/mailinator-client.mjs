@@ -41,6 +41,8 @@ const deleteEmailsByInbox = async (inboxName) => {
       console.log(`Error occurred deleting emails for inbox: ${inboxName}@${mailinatorDomain}. StatusCode: ${response.statusCode}`);
       return null;
     }
+
+    return response.result;
   });
 }
 // end DELETE apis

@@ -23,6 +23,9 @@ test.describe("Sign-up flow", () => {
     // send email verification code
     await page.getByText('Send verification code').click();
 
+    // wait for email to be sent
+    await (new Promise(r => setTimeout(r, 5000)));
+
     // get verification email from inbox
     const emailMsg = (await getLatestEmailMessage(testEmailPrefix));
     const { id } = emailMsg;
