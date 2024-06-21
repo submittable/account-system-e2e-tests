@@ -1,15 +1,15 @@
 import 'dotenv/config';
 import { MailinatorClient, GetInboxRequest, GetMessageRequest, DeleteInboxMessagesRequest } from 'mailinator-client';
 
-const mailinatorClient = new MailinatorClient(process.env.MAILINATOR_API_KEY);
+const client = new MailinatorClient(process.env.MAILINATOR_API_KEY);
 const mailinatorDomain = process.env.MAILINATOR_PRIVATE_DOMAIN;
 
 // begin GET apis
 const getLatestEmailMessage = async (inboxName) => {  
-  return await mailinatorClient.request(new GetInboxRequest(mailinatorDomain, inboxName)).then(response => {  
+  return await client.request(new GetInboxRequest(mailinatorDomain, inboxName)).then(response => {  
     if (response.result?.msgs.length === 0)
     {
-      console.log(`${inboxName}@${mailinatorDomain}'s inbox is empty!`);
+      console.error(`${inboxName}@${mailinatorDomain}'s inbox is empty!`);
       return null;
     }
 
@@ -19,10 +19,10 @@ const getLatestEmailMessage = async (inboxName) => {
 }
 
 const getEmailById = async (emailId) => {
-  return await mailinatorClient.request(new GetMessageRequest(mailinatorDomain, emailId)).then(response => {
+  return await client.request(new GetMessageRequest(mailinatorDomain, emailId)).then(response => {
     if (response.statusCode !== 200)
     {
-      console.log(`Error occurred fetching email with ID: ${emailId}. StatusCode: ${response.statusCode}`);
+      console.error(`Error occurred fetching email with ID: ${emailId}. StatusCode: ${response.statusCode}`);
       return null;
     }
 
@@ -35,10 +35,10 @@ const getEmailBody = (email) => email.parts[0]?.body;
 
 // begin DELETE apis
 const deleteEmailsByInbox = async (inboxName) => {
-  return await mailinatorClient.request(new DeleteInboxMessagesRequest(mailinatorDomain, inboxName)).then(response => {  
+  return await client.request(new DeleteInboxMessagesRequest(mailinatorDomain, inboxName)).then(response => {  
     if (response.statusCode !== 200)
     {
-      console.log(`Error occurred deleting emails for inbox: ${inboxName}@${mailinatorDomain}. StatusCode: ${response.statusCode}`);
+      console.error(`Error occurred deleting emails for inbox: ${inboxName}@${mailinatorDomain}. StatusCode: ${response.statusCode}`);
       return null;
     }
 
