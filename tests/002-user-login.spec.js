@@ -1,7 +1,5 @@
-// @ts-check
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test'
 
-// begin login tests
 test.describe("Log-in flow", () => {
   test("Successfully log in to account", async ({ page, browserName }) => {
     // navigate to Auth0 login page through demo app
@@ -19,10 +17,4 @@ test.describe("Log-in flow", () => {
     // verify logged in state in accounts demo app
     await expect((await page.locator('id=profileDropDown'))).toBeVisible();
   });
-
-  // TODO: delete all test users after all tests have run
-  // test.afterAll(async ({ page }) => {
-    
-  // });
 })
-// end login tests

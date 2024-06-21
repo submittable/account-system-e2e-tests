@@ -47,6 +47,11 @@ module.exports = defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+    {
+      name: 'teardown',
+      testMatch: /global\.teardown\.js/,
+      dependencies: ['chromium', 'firefox', 'webkit'],
+    },
 
     /* Test against mobile viewports. */
     // {
