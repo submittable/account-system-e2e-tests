@@ -25,13 +25,23 @@ test.describe("Sign-up flow", () => {
     // send email verification code
     await page.getByText('Send verification code').click();
 
-    // wait for email to be sent
-    await (new Promise(r => setTimeout(r, 5000)));
+    // get verification email from inbox (max 3 tries)
+    var emailMsg = null;
+    var iter = 0;
+    var mult = 1;
+    while (emailMsg === null && iter < 3)
+    {
+      await (new Promise(r => setTimeout(r, 1000 * mult)));
+      emailMsg = await getLatestEmailMessage(testEmailPrefix);
+      mult * 2;
+    }
 
-    // get verification email from inbox
-    const emailMsg = (await getLatestEmailMessage(testEmailPrefix));
+    if (emailMsg === null)
+    {
+      throw new Error('No verification code email found - max retries exceeded (3)');
+    }
+
     const { id } = emailMsg;
-
     const email = await getEmailById(id);
     const { subject } = email;
 
