@@ -29,8 +29,6 @@ const getUsersQuery = async (query) => {
 // begin DELETE apis
 const deleteUserById = async (userId) => {
   return await client.users.delete({ id: userId }).then(response => {
-    console.log({ response });
-
     if (response.status !== 204)
     {
       console.error(`Error occurred deleting user with ID: ${userId}. StatusCode: ${response.statusCode}`);
