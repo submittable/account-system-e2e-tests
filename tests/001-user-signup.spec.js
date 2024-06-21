@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test'
 import { getLatestEmailMessage, getEmailById, getEmailBody, mailinatorDomain } from '../utils/mailinator-client.mjs'
 
+const demoAppUrl = process.env.ACCOUNTS_DEMO_APP_URL;
+
 test.describe("Sign-up flow", () => {
   test("Successfully sign up for account", async ({ page, browserName }) => {
     // navigate to Auth0 signup page through demo app
-    await page.goto('https://account-system-auth0.dev-submittable.com/login');
+    await page.goto(demoAppUrl);
     await page.getByText('Sign Up', { exact: true }).click();
 
     // fill out sign-up form & submit
