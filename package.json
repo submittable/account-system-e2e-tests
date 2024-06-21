@@ -10,5 +10,8 @@
   "devDependencies": {
     "@playwright/test": "^1.44.1",
     "@types/node": "^20.14.5"
+  },
+  "dependencies": {
+    "mailinator-client": "^1.0.4"
   }
 }
