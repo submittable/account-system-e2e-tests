@@ -1,7 +1,7 @@
 # account-system-e2e-tests
 Repository housing end-to-end (E2E) tests of the Auth0 Account System. These tests provide us "end user experience" test coverage, that help us guarantee that our UI/UX is what we expect, without us having to manually test the flows ourselves.
 
-crafted with [Playwright](https://playwright.dev/docs/intro) - `npm init playwright@latest`
+(tests crafted with [Playwright](https://playwright.dev/docs/intro) - `npm init playwright@latest`)
 
 ## Test Coverage
 The following flows/user experiences are covered (included in-the-box):
