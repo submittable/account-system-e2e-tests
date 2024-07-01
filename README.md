@@ -1,11 +1,27 @@
 # account-system-e2e-tests
-created using [Playwright](https://playwright.dev/docs/intro) - `npm init playwright@latest`
+Repository housing end-to-end (E2E) tests of the Auth0 Account System. These tests provide us "end user experience" test coverage, that help us guarantee that our UI/UX is what we expect, without us having to manually test the flows ourselves.
 
-## Tests (included in the box)
-1. Signup flow (email & password) - **WIP**
-2. Login flow (email & password) - **WIP**
+(tests crafted with [Playwright](https://playwright.dev/docs/intro) - `npm init playwright@latest`)
 
-## Run the tests
+## Test Coverage
+The following flows/user experiences are covered (included in-the-box):
+- [x] Signup flow (email & password)
+- [x] Login flow (email & password)
+
+**Candidate flows** (i.e. flows not yet covered)
+- [ ] Password reset
+- [ ] Account linking
+- [ ] Multi-factor authentication (MFA)
+- [ ] Block/unblock User account
+
+## How-to Run Tests
+### Prerequisites
+**Whitelist your IP** - In order for this test suite to run successfully, bot detection features from our Auth0 Tenant must be disabled for your IP address. Doing this will prevent things like CAPTCHA challenges from happening during your test runs & blocking the tests from executing as expected. 
+
+To have this done for you, please reach out to the #pd-account-system Slack channel directly with your IP address and we can unblock you. For example:
+> "May I please have <IP_ADDRESS> whitelisted in <TARGET_ENV> for running the Account System E2E test suite?"
+
+### Run Tests
 1. `npm install` - install all dependencies for project
 2. open 1Password, find "ACCOUNT_SYSTEM_E2E_TESTS_ENV" entry > paste contents into a `.env` file in the root of this directory
 3. `npx playwright test` - run all tests in headless mode (i.e. no browser popups)
