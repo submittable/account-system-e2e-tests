@@ -1,8 +1,8 @@
-import 'dotenv/config';
 import { MailinatorClient, GetInboxRequest, GetMessageRequest, DeleteInboxMessagesRequest } from 'mailinator-client';
+import { getEnvVar } from './env-helper.mjs';
 
-const client = new MailinatorClient(process.env.MAILINATOR_API_KEY);
-const mailinatorDomain = process.env.MAILINATOR_PRIVATE_DOMAIN;
+const client = new MailinatorClient(getEnvVar('MAILINATOR_API_KEY'));
+const mailinatorDomain = getEnvVar('MAILINATOR_PRIVATE_DOMAIN');
 
 // begin GET apis
 const getLatestEmailMessage = async (inboxName) => {  

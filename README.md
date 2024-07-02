@@ -14,7 +14,28 @@ The following flows/user experiences are covered (included in-the-box):
 - [ ] Multi-factor authentication (MFA)
 - [ ] Block/unblock User account
 
-## How-to Run Tests
+## Running the Tests
+The tests contained in this repoistory are run in 1 of 3 ways, a few of them being automated:
+
+1. Manual triggers - use the "Run Tests" Action to manually kick off test runs against any env of your choice (dev, staging, prod)
+2. On pull request - the suite will run as part of the CI pipeline upon opening a PR to the `main` branch
+3. **On cron schedule - the suite is run against our Production Auth0 UIs on the hour, daily**. These run automatically in the background on our Submittable self-hosted runners in K8s 
+
+## Troubleshooting
+Please use the steps below for resolving common issues with the test suite.
+
+### Common Issues
+There are a few main culprits of unexpected test failures, that are not apparent from viewing the failure logs. Please ensure that none of the following are present & retry the failing tests again:
+
+
+**Problem:**
+> Test user accounts are leftover in the Auth0 Tenant and/or test emails are left in test email inboxes
+
+**Solution:** 
+1. Run the cleanup script included in this repo: `npm run cleanup`. Output should indicate if resources have been deleted/cleaned up.
+
+
+## Local Development
 ### Prerequisites
 **Whitelist your IP** - In order for this test suite to run successfully, bot detection features from our Auth0 Tenant must be disabled for your IP address. Doing this will prevent things like CAPTCHA challenges from happening during your test runs & blocking the tests from executing as expected. 
 
@@ -24,7 +45,11 @@ To have this done for you, please reach out to the #pd-account-system Slack chan
 ### Run Tests
 1. `npm install` - install all dependencies for project
 2. open 1Password, find "ACCOUNT_SYSTEM_E2E_TESTS_ENV" entry > paste contents into a `.env` file in the root of this directory
-3. `npx playwright test` - run all tests in headless mode (i.e. no browser popups)
-    - add `--headed` option to command to run w/browser popups
-    - add `--ui` option to open Playwright test runner UI
-    - run specific tests by providing direct path to the test you want (ex. `npx playwright test tests/001-user-signup.spec.js`)
+3. `npm run test`
+
+#### Other available commands
+`npm run test:headed` - run tests in "headed" mode (i.e. with browser popups)
+
+`npm run test:ui` - run tests in Playwright's test runner UI
+
+Run specific tests by providing direct path to the test you want (ex. `npx playwright test tests/001-user-signup.spec.js`)

@@ -19,11 +19,11 @@ test.describe("Sign-up flow", () => {
     await page.getByText('Continue', { exact: true }).click();
 
     // set password for account & submit
-    await page.fill('input[name="password"]', 'PlaywrightTest123!');
+    await page.fill('input[name="password"]', 'PlaywrightTest12345!');
     await page.getByText('Continue', { exact: true }).click();
 
     // send email verification code
-    await page.getByText('Send verification code').click();
+    await page.getByText('Send verification code', { exact: true }).click();
 
     // get verification email from inbox (max 3 tries)
     var emailMsg = null;

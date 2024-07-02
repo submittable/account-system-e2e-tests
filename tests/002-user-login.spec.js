@@ -15,7 +15,7 @@ test.describe("Log-in flow", () => {
     await page.getByText('Continue', { exact: true }).click();
 
     // set password for account & submit
-    await page.fill('input[name="password"]', 'PlaywrightTest123!');
+    await page.fill('input[name="password"]', 'PlaywrightTest12345!');
     await page.getByText('Continue', { exact: true }).click();
 
     // verify logged in state in accounts demo app
