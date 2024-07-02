@@ -1,10 +1,14 @@
 import 'dotenv/config';
 
-const getEnvVar = (varName) => {
+const getEnvVar = (varName, isRequired = true) => {
   if (!process.env[varName])
   {
     console.error(`Environment variable ${varName} not found!`);
-    process.exit(1);
+    
+    // only exit when env var is required
+    if (isRequired) {
+      process.exit(1);
+    }
   }
 
   return process.env[varName];
