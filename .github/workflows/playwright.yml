@@ -2,6 +2,10 @@ name: Run Playwright Tests
 on: 
   workflow_call:
     inputs:
+      ci:
+        type: boolean
+        required: true
+        default: false
       target_url:
         type: string
         description: 'URL of the site to run E2E tests against'
@@ -39,7 +43,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        CI: true
+        CI: ${{ inputs.ci }}
         ACCOUNTS_DEMO_APP_URL: ${{ inputs.target_url }}
         MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
         MAILINATOR_PRIVATE_DOMAIN: ${{ inputs.mailinator_private_domain }}
