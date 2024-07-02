@@ -1,0 +1,75 @@
+name: Run Tests
+on: 
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+          description: 'Environment to run tests against'
+          type: choice
+          required: true
+          options:
+            - development
+            - staging
+            - production
+          default: development
+  schedule:
+    - cron: '0 */1 * * *' # run every hour
+
+    
+jobs:
+  # BEGIN - automated test runs on schedule
+  scheduled_test: 
+    uses: ./playwright.yml
+    if: ${{ github.event_name == 'schedule' }}
+    with:
+      target_url: https://account-system-auth0.submittable.com/login
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-prod.eu.auth0.com
+      # TODO: generate client ID and secret for prod tests
+      auth0_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+  # END - automated test runs on schedule
+
+  # BEGIN - manually triggered test runs
+  dev_test:
+    uses: ./playwright.yml
+    if: ${{ github.event.inputs.environment == 'development' }}
+    with:
+      target_url: https://account-system-auth0.dev-submittable.com/login
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-dev.eu.auth0.com
+      auth0_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+
+  stg_test:
+    uses: ./playwright.yml
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    with:
+      target_url: https://account-system-auth0.staging-submittable.com/login
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-staging.eu.auth0.com
+      # TODO: generate client ID and secret for staging tests
+      auth0_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+
+  prod_test:
+    uses: ./playwright.yml
+    if: ${{ github.event.inputs.environment == 'production' }}
+    with:
+      target_url: https://account-system-auth0.submittable.com/login
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-prod.eu.auth0.com
+      # TODO: generate client ID and secret for prod tests
+      auth0_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+  # END - manually triggered test runs
+    
