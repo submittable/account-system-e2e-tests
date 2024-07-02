@@ -3,8 +3,8 @@ import { ManagementClient } from 'auth0';
 import { get } from 'http';
 
 const auth0Domain = process.env.AUTH0_DOMAIN;
-const auth0ClientId = process.env.AUTH0_CLIENT_ID;
-const auth0ClientSecret = process.env.AUTH0_CLIENT_SECRET;
+const auth0ClientId = process.env.AUTH0_E2E_CLIENT_ID;
+const auth0ClientSecret = process.env.AUTH0_E2E_CLIENT_SECRET;
 
 var client = new ManagementClient({
   domain: auth0Domain,
