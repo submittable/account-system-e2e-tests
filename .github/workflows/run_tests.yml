@@ -19,7 +19,7 @@ on:
 jobs:
   # BEGIN - automated test runs on schedule
   scheduled_test: 
-    uses: ./playwright.yml
+    uses: ./.github/workflows/playwright.yml
     if: ${{ github.event_name == 'schedule' }}
     with:
       target_url: https://account-system-auth0.submittable.com/login
@@ -34,7 +34,7 @@ jobs:
 
   # BEGIN - manually triggered test runs
   dev_test:
-    uses: ./playwright.yml
+    uses: ./.github/workflows/playwright.yml
     if: ${{ github.event.inputs.environment == 'development' }}
     with:
       target_url: https://account-system-auth0.dev-submittable.com/login
@@ -46,7 +46,7 @@ jobs:
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_DEV }}
 
   stg_test:
-    uses: ./playwright.yml
+    uses: ./.github/workflows/playwright.yml
     if: ${{ github.event.inputs.environment == 'staging' }}
     with:
       target_url: https://account-system-auth0.staging-submittable.com/login
@@ -59,7 +59,7 @@ jobs:
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_STG }}
 
   prod_test:
-    uses: ./playwright.yml
+    uses: ./.github/workflows/playwright.yml
     if: ${{ github.event.inputs.environment == 'production' }}
     with:
       target_url: https://account-system-auth0.submittable.com/login
