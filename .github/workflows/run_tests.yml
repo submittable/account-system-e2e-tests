@@ -17,7 +17,21 @@ on:
     - cron: '0 */1 * * *' # run every hour
     
 jobs:
-  # BEGIN - automated test runs on schedule
+  # BEGIN - pull request to main CI runs (targets Dev)
+  ci_test: 
+    uses: ./.github/workflows/playwright.yml
+    if: ${{ github.event == 'pull_request' }}
+    with:
+      target_url: https://account-system-auth0.dev-submittable.com/login
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-dev.eu.auth0.com
+      auth0_e2e_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_DEV }}
+  # END - automated test runs on schedule
+
+  # BEGIN - automated test runs on schedule (targets Prod)
   scheduled_test: 
     uses: ./.github/workflows/playwright.yml
     if: ${{ github.event_name == 'schedule' }}
