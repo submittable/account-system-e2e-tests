@@ -29,12 +29,10 @@ There are a few main culprits of unexpected test failures, that are not apparent
 
 
 **Problem:**
-> Test user accounts are leftover in the Auth0 Tenant
+> Test user accounts are leftover in the Auth0 Tenant and/or test emails are left in test email inboxes
 
 **Solution:** 
-1. Navigate to the Auth0 Tenant you are testing against
-2. Go to the Users search (User Management > Users) 
-3. Search for "E2E Test Account". If any users are found, delete the test accounts and rerun tests
+1. Run the cleanup script included in this repo: `npm run cleanup`. Output should indicate if resources have been deleted/cleaned up.
 
 
 ## Local Development
@@ -47,7 +45,11 @@ To have this done for you, please reach out to the #pd-account-system Slack chan
 ### Run Tests
 1. `npm install` - install all dependencies for project
 2. open 1Password, find "ACCOUNT_SYSTEM_E2E_TESTS_ENV" entry > paste contents into a `.env` file in the root of this directory
-3. `npx playwright test` - run all tests in headless mode (i.e. no browser popups)
-    - add `--headed` option to command to run w/browser popups
-    - add `--ui` option to open Playwright test runner UI
-    - run specific tests by providing direct path to the test you want (ex. `npx playwright test tests/001-user-signup.spec.js`)
+3. `npm run test`
+
+#### Other available commands
+`npm run test:headed` - run tests in "headed" mode (i.e. with browser popups)
+
+`npm run test:ui` - run tests in Playwright's test runner UI
+
+Run specific tests by providing direct path to the test you want (ex. `npx playwright test tests/001-user-signup.spec.js`)

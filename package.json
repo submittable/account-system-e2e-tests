@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "cleanup": "node utils/cleanup.mjs"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
