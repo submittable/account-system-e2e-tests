@@ -1,10 +1,9 @@
-import 'dotenv/config';
 import { ManagementClient } from 'auth0';
-import { get } from 'http';
+import { getEnvVar } from './env-helper.mjs';
 
-const auth0Domain = process.env.AUTH0_DOMAIN;
-const auth0ClientId = process.env.AUTH0_E2E_CLIENT_ID;
-const auth0ClientSecret = process.env.AUTH0_E2E_CLIENT_SECRET;
+const auth0Domain = getEnvVar('AUTH0_DOMAIN');
+const auth0ClientId = getEnvVar('AUTH0_E2E_CLIENT_ID');
+const auth0ClientSecret = getEnvVar('AUTH0_E2E_CLIENT_SECRET');
 
 var client = new ManagementClient({
   domain: auth0Domain,
