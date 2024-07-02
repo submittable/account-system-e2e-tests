@@ -20,7 +20,7 @@ jobs:
   # BEGIN - pull request to main CI runs (targets Dev)
   ci_test: 
     uses: ./.github/workflows/playwright.yml
-    if: ${{ github.event == 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request' }}
     with:
       target_url: https://account-system-auth0.dev-submittable.com/login
       mailinator_private_domain: submittable.testinator.com
