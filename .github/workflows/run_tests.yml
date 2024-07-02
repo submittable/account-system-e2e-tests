@@ -25,7 +25,7 @@ jobs:
       target_url: https://account-system-auth0.dev-submittable.com/login
       mailinator_private_domain: submittable.testinator.com
       auth0_domain: account-system-dev.eu.auth0.com
-      auth0_e2e_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+      auth0_e2e_client_id: PEltKKABdFXRiMObmGZaZ0Gzt28q2lyJ
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_DEV }}
@@ -39,8 +39,7 @@ jobs:
       target_url: https://account-system-auth0.submittable.com/login
       mailinator_private_domain: submittable.testinator.com
       auth0_domain: account-system-prod.eu.auth0.com
-      # TODO: generate client ID and secret for prod tests
-      auth0_e2e_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+      auth0_e2e_client_id: Wj5Ah6ALtFoeZFBtDdiDgyDDur3DH9nS
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_PROD }}
@@ -54,7 +53,7 @@ jobs:
       target_url: https://account-system-auth0.dev-submittable.com/login
       mailinator_private_domain: submittable.testinator.com
       auth0_domain: account-system-dev.eu.auth0.com
-      auth0_e2e_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+      auth0_e2e_client_id: PEltKKABdFXRiMObmGZaZ0Gzt28q2lyJ
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_DEV }}
@@ -66,8 +65,7 @@ jobs:
       target_url: https://account-system-auth0.staging-submittable.com/login
       mailinator_private_domain: submittable.testinator.com
       auth0_domain: account-system-staging.eu.auth0.com
-      # TODO: generate client ID and secret for staging tests
-      auth0_e2e_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+      auth0_e2e_client_id: 2ER0IDutTClZXWg0Rb0FGoQhpXpyH4ap
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_STG }}
@@ -79,8 +77,7 @@ jobs:
       target_url: https://account-system-auth0.submittable.com/login
       mailinator_private_domain: submittable.testinator.com
       auth0_domain: account-system-prod.eu.auth0.com
-      # TODO: generate client ID and secret for prod tests
-      auth0_e2e_client_id: nzR5Z5sQ6vFdhfIv4Uq8jwlVX4XwoV6B
+      auth0_e2e_client_id: Wj5Ah6ALtFoeZFBtDdiDgyDDur3DH9nS
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_PROD }}
