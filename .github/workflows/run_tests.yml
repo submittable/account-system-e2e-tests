@@ -27,11 +27,9 @@ jobs:
       mailinator_private_domain: submittable.testinator.com
       auth0_domain: account-system-dev.eu.auth0.com
       auth0_e2e_client_id: PEltKKABdFXRiMObmGZaZ0Gzt28q2lyJ
-      report_to_slack: true # TODO: remove
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_DEV }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # TODO: remove
   # END - automated test runs on schedule
 
   # BEGIN - automated test runs on schedule (targets Prod)
@@ -83,8 +81,10 @@ jobs:
       mailinator_private_domain: submittable.testinator.com
       auth0_domain: account-system-prod.eu.auth0.com
       auth0_e2e_client_id: Wj5Ah6ALtFoeZFBtDdiDgyDDur3DH9nS
+      report_to_slack: true
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_PROD }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   # END - manually triggered test runs
     
