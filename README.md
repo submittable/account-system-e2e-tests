@@ -32,7 +32,7 @@ There are a few main culprits of unexpected test failures, that are not apparent
 > Test user accounts are leftover in the Auth0 Tenant and/or test emails are left in test email inboxes
 
 **Solution:** 
-1. Run the cleanup script included in this repo: `npm run cleanup`. Output should indicate if resources have been deleted/cleaned up.
+1. Run the [cleanup workflow](https://github.com/submittable/account-system-e2e-tests/actions/workflows/run_cleanup.yml) (incl. in repo) in the environment you're experiencing the failures in. 
 
 
 ## Local Development
