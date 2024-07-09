@@ -55,7 +55,7 @@ jobs:
         AUTH0_E2E_CLIENT_ID: ${{ inputs.auth0_e2e_client_id }}
         AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET }}
     - name: Report failures to Slack
-      if: failure() && ${{ inputs.report_to_slack }}
+      if: ${{ failure() && inputs.report_to_slack }}
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
