@@ -29,7 +29,7 @@ on:
         required: true
       AUTH0_E2E_CLIENT_SECRET:
         required: true
-      SLACK_WEBHOOK:
+      SLACK_WEBHOOK_URL:
         required: false
 jobs:
   test:
@@ -58,7 +58,7 @@ jobs:
       if: ${{ inputs.report_to_slack }}
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_USERNAME: Account System E2E Tests
         SLACK_ICON_EMOJI: ':robot_face:'
         SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}

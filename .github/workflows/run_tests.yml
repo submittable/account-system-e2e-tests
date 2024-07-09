@@ -31,7 +31,7 @@ jobs:
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_DEV }}
-      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }} # TODO: remove
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # TODO: remove
   # END - automated test runs on schedule
 
   # BEGIN - automated test runs on schedule (targets Prod)
@@ -47,7 +47,7 @@ jobs:
     secrets: 
       MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
       AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_PROD }}
-      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   # END - automated test runs on schedule
 
   # BEGIN - manually triggered test runs
