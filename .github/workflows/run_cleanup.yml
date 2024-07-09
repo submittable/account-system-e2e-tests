@@ -1,0 +1,53 @@
+#   NOTE: This workflow shouldn't need to be used after successful test runs, since they already clean up after themselves. 
+#   This is included in case of unexpected test failures, in which running this workflow will clean up lingering test data that may be causing the failures.
+
+name: Run Cleanup
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+          description: 'Environment to run cleanup in'
+          type: choice
+          required: true
+          options:
+            - development
+            - staging
+            - production
+          default: development
+    
+jobs:
+  # BEGIN - manually triggered cleanup runs
+  dev_cleanup:
+    uses: ./.github/workflows/cleanup.yml
+    if: ${{ github.event.inputs.environment == 'development' }}
+    with:
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-dev.eu.auth0.com
+      auth0_e2e_client_id: PEltKKABdFXRiMObmGZaZ0Gzt28q2lyJ
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_DEV }}
+
+  stg_cleanup:
+    uses: ./.github/workflows/cleanup.yml
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    with:
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-staging.eu.auth0.com
+      auth0_e2e_client_id: 2ER0IDutTClZXWg0Rb0FGoQhpXpyH4ap
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_STG }}
+
+  prod_cleanup:
+    uses: ./.github/workflows/cleanup.yml
+    if: ${{ github.event.inputs.environment == 'production' }}
+    with:
+      mailinator_private_domain: submittable.testinator.com
+      auth0_domain: account-system-prod.eu.auth0.com
+      auth0_e2e_client_id: Wj5Ah6ALtFoeZFBtDdiDgyDDur3DH9nS
+    secrets: 
+      MAILINATOR_API_KEY: ${{ secrets.MAILINATOR_API_KEY }}
+      AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET_PROD }}
+  # END - manually triggered cleanup runs
+    

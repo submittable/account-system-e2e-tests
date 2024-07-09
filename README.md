@@ -1,6 +1,8 @@
 # account-system-e2e-tests
 Repository housing end-to-end (E2E) tests of the Auth0 Account System. These tests provide us "end user experience" test coverage, that help us guarantee that our UI/UX is what we expect, without us having to manually test the flows ourselves.
 
+These tests are currently scheduled to run on an hourly cadence against our Production environment (using GH Actions), and report any failures observed directly to the `#bugs-account-system` channel for remediation by the Accounts Team.
+
 (tests crafted with [Playwright](https://playwright.dev/docs/intro) - `npm init playwright@latest`)
 
 ## Test Coverage
@@ -32,14 +34,14 @@ There are a few main culprits of unexpected test failures, that are not apparent
 > Test user accounts are leftover in the Auth0 Tenant and/or test emails are left in test email inboxes
 
 **Solution:** 
-1. Run the cleanup script included in this repo: `npm run cleanup`. Output should indicate if resources have been deleted/cleaned up.
+1. Run the [cleanup workflow](https://github.com/submittable/account-system-e2e-tests/actions/workflows/run_cleanup.yml) (incl. in repo) in the environment experiencing the failures. 
 
 
 ## Local Development
 ### Prerequisites
 **Whitelist your IP** - In order for this test suite to run successfully, bot detection features from our Auth0 Tenant must be disabled for your IP address. Doing this will prevent things like CAPTCHA challenges from happening during your test runs & blocking the tests from executing as expected. 
 
-To have this done for you, please reach out to the #pd-account-system Slack channel directly with your IP address and we can unblock you. For example:
+To have this done for you, please reach out to the `#pd-account-system` Slack channel directly with your IP address and we can unblock you. For example:
 > "May I please have <IP_ADDRESS> whitelisted in <TARGET_ENV> for running the Account System E2E test suite?"
 
 ### Run Tests

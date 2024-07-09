@@ -5,6 +5,9 @@ on:
       ci:
         type: boolean
         default: false
+      report_to_slack:
+        type: boolean
+        default: false
       target_url:
         type: string
         description: 'URL of the site to run E2E tests against'
@@ -26,6 +29,8 @@ on:
         required: true
       AUTH0_E2E_CLIENT_SECRET:
         required: true
+      SLACK_WEBHOOK_URL:
+        required: false
 jobs:
   test:
     timeout-minutes: 60
@@ -49,4 +54,14 @@ jobs:
         AUTH0_DOMAIN: ${{ inputs.auth0_domain }}
         AUTH0_E2E_CLIENT_ID: ${{ inputs.auth0_e2e_client_id }}
         AUTH0_E2E_CLIENT_SECRET: ${{ secrets.AUTH0_E2E_CLIENT_SECRET }}
+    - name: Report failures to Slack
+      if: ${{ failure() && inputs.report_to_slack }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_USERNAME: Account System E2E Tests
+        SLACK_ICON_EMOJI: ':robot_face:'
+        SLACK_COLOR: 'danger'
+        SLACK_TITLE: 'E2E Test Run Failure'
+        SLACK_MESSAGE: 'A failure has occurred while running the Account System E2E suite targeting ${{ inputs.target_url }}. Please inspect the logs in GitHub Actions for more information.'
     
