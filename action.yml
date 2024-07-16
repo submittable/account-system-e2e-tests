@@ -27,10 +27,12 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
-      run: cd $GITHUB_WORKSPACE
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+    - name: Change directories
+      shell: bash
+      run: cd account-system-e2e-tests
     - name: Set development environment
       if: ${{ inputs.environment == 'development' }}
       shell: bash
@@ -62,7 +64,6 @@ runs:
       shell: bash
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      id: run_tests
       shell: bash
       run: npx playwright test
       env:
