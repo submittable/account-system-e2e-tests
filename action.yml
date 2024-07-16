@@ -56,13 +56,13 @@ runs:
         echo "AUTH0_E2E_CLIENT_ID=Wj5Ah6ALtFoeZFBtDdiDgyDDur3DH9nS" >> $GITHUB_ENV
     - name: Install dependencies
       shell: bash
-      run: cd $GITHHUB_WORKSPACE && npm ci
+      run: cd $GITHUB_WORKSPACE && npm ci
     - name: Install Playwright Browsers
       shell: bash
-      run: cd $GITHHUB_WORKSPACE && npx playwright install --with-deps
+      run: cd $GITHUB_WORKSPACE && npx playwright install --with-deps
     - name: Run Playwright tests
       shell: bash
-      run: cd $GITHHUB_WORKSPACE && npx playwright test
+      run: cd $GITHUB_WORKSPACE && npx playwright test
       env:
         CI: true
         MAILINATOR_API_KEY: ${{ inputs.mailinator_api_key }}
