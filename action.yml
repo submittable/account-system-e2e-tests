@@ -29,7 +29,12 @@ runs:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version-file: '.nvmrc'
+    - name: what the hell is going on, where am i, and what dir am i in TODO REMOVE
+      shell: bash
+      run: |
+        pwd
+        ls -la
     - name: Set development environment
       if: ${{ inputs.environment == 'development' }}
       shell: bash
@@ -56,13 +61,13 @@ runs:
         echo "AUTH0_E2E_CLIENT_ID=Wj5Ah6ALtFoeZFBtDdiDgyDDur3DH9nS" >> $GITHUB_ENV
     - name: Install dependencies
       shell: bash
-      run: cd $GITHUB_WORKSPACE && npm ci
+      run: npm ci
     - name: Install Playwright Browsers
       shell: bash
-      run: cd $GITHUB_WORKSPACE && npx playwright install --with-deps
+      run: npx playwright install --with-deps
     - name: Run Playwright tests
       shell: bash
-      run: cd $GITHUB_WORKSPACE && npx playwright test
+      run: npx playwright test
       env:
         CI: true
         MAILINATOR_API_KEY: ${{ inputs.mailinator_api_key }}
