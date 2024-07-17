@@ -68,6 +68,7 @@ runs:
       shell: bash
       run: npx playwright install --with-deps
     - name: Run Playwright tests
+      id: run_tests
       shell: bash
       run: npx playwright test
       env:
