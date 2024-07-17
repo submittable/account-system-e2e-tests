@@ -27,14 +27,12 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
+      with:
+        repository: 'submittable/account-system-e2e-tests'
+        ref: 'SUB-17638'
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
-    - name: what the hell is going on, where am i, and what dir am i in TODO REMOVE
-      shell: bash
-      run: |
-        pwd
-        ls -la
     - name: Set development environment
       if: ${{ inputs.environment == 'development' }}
       shell: bash
