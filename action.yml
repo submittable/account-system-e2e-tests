@@ -73,7 +73,6 @@ runs:
       env:
         CI: true
         MAILINATOR_API_KEY: ${{ inputs.mailinator_api_key }}
-        AUTH0_E2E_CLIENT_ID: ${{ inputs.auth0_e2e_client_id }}
         AUTH0_E2E_CLIENT_SECRET: ${{ inputs.auth0_e2e_client_secret }}
     - name: Report failures to Slack
       if: ${{ failure() && inputs.slack_webhook_url != '' }}
