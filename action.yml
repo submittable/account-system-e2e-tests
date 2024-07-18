@@ -1,0 +1,87 @@
+# GitHub Actions - a composite action to run account system e2e tests as a step in other workflows. See "Running the Tests" in the README for usage instructions.
+name: Run Account System E2E tests
+description: Composite action to run account system e2e tests as a step in other workflows
+
+# values for the inputs below can be found in 1Password in the "account-system-e2e-tests GHA secrets" item
+inputs:
+  environment:
+    description: 'The target environment to run tests against (valid options: development, staging, production)'
+    required: true
+    default: production
+  auth0_e2e_client_secret:
+    description: 'The client secret of the E2E tests application in Auth0'
+    required: true
+  mailinator_api_key:
+    description: 'Submittable Mailinator API key'
+    required: true
+  slack_webhook_url:
+    description: 'Slack webhook URL to report failures into a channel of your choice (no Slack notifications are sent when omitted)'
+    required: false
+    default: ''
+  read_e2e_tests_pat:
+    description: 'Personal Access Token (PAT) to read the account-system-e2e-tests repository'
+    required: true
+outputs:
+  results: 
+    description: 'The test results'
+    value: ${{ steps.run_tests.outputs.success }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: 'submittable/account-system-e2e-tests'
+        ref: 'SUB-17638'
+        token: ${{ inputs.read_e2e_tests_pat }}
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+    - name: Set development environment
+      if: ${{ inputs.environment == 'development' }}
+      shell: bash
+      run: |
+        echo "ACCOUNTS_DEMO_APP_URL=https://account-system-auth0.dev-submittable.com/login" >> $GITHUB_ENV
+        echo "AUTH0_DOMAIN=account-system-dev.eu.auth0.com" >> $GITHUB_ENV
+        echo "MAILINATOR_PRIVATE_DOMAIN=submittable.testinator.com" >> $GITHUB_ENV
+        echo "AUTH0_E2E_CLIENT_ID=PEltKKABdFXRiMObmGZaZ0Gzt28q2lyJ" >> $GITHUB_ENV
+    - name: Set staging environment
+      if: ${{ inputs.environment == 'staging' }}
+      shell: bash
+      run: |
+        echo "ACCOUNTS_DEMO_APP_URL=https://account-system-auth0.staging-submittable.com/login" >> $GITHUB_ENV
+        echo "AUTH0_DOMAIN=account-system-staging.eu.auth0.com" >> $GITHUB_ENV
+        echo "MAILINATOR_PRIVATE_DOMAIN=submittable.testinator.com" >> $GITHUB_ENV
+        echo "AUTH0_E2E_CLIENT_ID=2ER0IDutTClZXWg0Rb0FGoQhpXpyH4ap" >> $GITHUB_ENV
+    - name: Set production environment
+      if: ${{ inputs.environment == 'production' }}
+      shell: bash
+      run: |
+        echo "ACCOUNTS_DEMO_APP_URL=https://account-system-auth0.submittable.com/login" >> $GITHUB_ENV
+        echo "AUTH0_DOMAIN=account-system-prod.eu.auth0.com" >> $GITHUB_ENV
+        echo "MAILINATOR_PRIVATE_DOMAIN=submittable.testinator.com" >> $GITHUB_ENV
+        echo "AUTH0_E2E_CLIENT_ID=Wj5Ah6ALtFoeZFBtDdiDgyDDur3DH9nS" >> $GITHUB_ENV
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+    - name: Install Playwright Browsers
+      shell: bash
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      id: run_tests
+      shell: bash
+      run: npx playwright test
+      env:
+        CI: true
+        MAILINATOR_API_KEY: ${{ inputs.mailinator_api_key }}
+        AUTH0_E2E_CLIENT_SECRET: ${{ inputs.auth0_e2e_client_secret }}
+    - name: Report failures to Slack
+      if: ${{ failure() && inputs.slack_webhook_url != '' }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ inputs.slack_webhook_url }}
+        SLACK_USERNAME: Account System E2E Tests
+        SLACK_ICON_EMOJI: ':robot_face:'
+        SLACK_COLOR: 'danger'
+        SLACK_TITLE: 'E2E Test Run Failure (${{ inputs.environment }})'
+        SLACK_MESSAGE: 'A failure has occurred while running the Account System E2E suite targeting ${{ inputs.environment }}. Please inspect the logs in GitHub Actions for more information.'
