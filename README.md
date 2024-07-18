@@ -17,11 +17,12 @@ The following flows/user experiences are covered (included in-the-box):
 - [ ] Block/unblock User account
 
 ## Running the Tests
-The tests contained in this repoistory are run in 1 of 3 ways, a few of them being automated:
+The tests contained in this repoistory can be run several different ways, a few of them being automated:
 
 1. Manual triggers - use the "Run Tests" Action to manually kick off test runs against any env of your choice (dev, staging, prod)
 2. On pull request - the suite will run as part of the CI pipeline upon opening a PR to the `main` branch
 3. **On cron schedule - the suite is run against our Production Auth0 UIs on the hour, daily**. These run automatically in the background on our Submittable self-hosted runners in K8s 
+4. **Consuming the composite action included in this repo (action.yml)**. This allows workflows in other repositories to pull & run the Account System E2E Tests as a step in their workflow. For more information on how to do this, the following usage example will be useful: https://github.com/submittable/azure-infra/pull/704
 
 ## Troubleshooting
 Please use the steps below for resolving common issues with the test suite.

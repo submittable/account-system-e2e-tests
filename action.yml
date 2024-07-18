@@ -1,4 +1,4 @@
-# GitHub Actions - a composite action to run account system e2e tests as a step in other workflows
+# GitHub Actions - a composite action to run account system e2e tests as a step in other workflows. See "Running the Tests" in the README for usage instructions.
 name: Run Account System E2E tests
 description: Composite action to run account system e2e tests as a step in other workflows
 
