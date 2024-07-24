@@ -8,7 +8,8 @@ test.describe("Sign-up flow", () => {
   test("Successfully sign up for account", async ({ page, browserName }, testInfo) => {
     // clear out test user state if retry
     if (testInfo.retry) {
-      await cleanup();
+      const deleteCount = await cleanup();
+      console.info(`Cleanup complete - deleted ${deleteCount} test users from Auth0 tenant.`);
     }
 
     // navigate to Auth0 signup page through demo app

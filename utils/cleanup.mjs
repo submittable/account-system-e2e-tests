@@ -14,7 +14,9 @@ export const cleanup = async () => {
     var deleteResult = await deleteUserById(user.user_id);
     deleteResults.push(deleteResult);
   }
-  console.info(`Deleted ${deleteResults.reduce((count, current) => Boolean(current) ? count += 1 : count, 0)} test users from Auth0 tenant.`);
+
+  return deleteResults.reduce((count, current) => Boolean(current) ? count += 1 : count, 0);
 }
 
-await cleanup();
+const deletedCount = await cleanup();
+console.info(`Cleanup complete - deleted ${deletedCount} test users from Auth0 tenant.`);
