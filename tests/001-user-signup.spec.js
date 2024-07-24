@@ -14,7 +14,9 @@ test.describe("Sign-up flow", () => {
 
     // navigate to Auth0 signup page through demo app
     await page.goto(demoAppUrl);
-    await page.getByText('Sign Up', { exact: true }).click();
+    const signUpBtn = page.getByText('Sign Up', { exact: true });
+    expect(await signUpBtn).toBeVisible();
+    await page.getByText(signUpBtn).click();
 
     // fill out sign-up form & submit
     const testEmailPrefix = `e2e_test_${browserName}`;
@@ -23,14 +25,21 @@ test.describe("Sign-up flow", () => {
     await page.fill('input[name="ulp-first-name"]', 'E2E');
     await page.fill('input[name="ulp-last-name"]', 'Tests');
     await page.fill('input[name="ulp-display-name"]', 'E2E Test Account');
-    await page.getByText('Continue', { exact: true }).click();
+
+    const continueBtn1 = page.getByText('Continue', { exact: true });
+    expect(await continueBtn1).toBeVisible();
+    await page.getByText(continueBtn1).click();
 
     // set password for account & submit
     await page.fill('input[name="password"]', 'PlaywrightTest12345!');
-    await page.getByText('Continue', { exact: true }).click();
+    const continueBtn2 = page.getByText('Continue', { exact: true });
+    expect(await continueBtn2).toBeVisible();
+    await page.getByText(continueBtn2).click();
 
     // send email verification code
-    await page.getByText('Send verification code', { exact: true }).click();
+    const emailVerifBtn = page.getByText('Send verification code', { exact: true });
+    expect(await emailVerifBtn).toBeVisible();
+    await page.getByText(emailVerifBtn).click();
 
     // get verification email from inbox (max 3 tries)
     var emailMsg = null;
@@ -59,7 +68,9 @@ test.describe("Sign-up flow", () => {
 
     // fill out verification code form & submit
     await page.fill('input[name="verification_code"]', verifCode);
-    await page.getByText('Continue', { exact: true }).click();
+    const continueBtn3 = page.getByText('Continue', { exact: true });
+    expect(await continueBtn3).toBeVisible();
+    await page.getByText(continueBtn3).click();
     
     // assertions (email subject line, body content & logged in state in demo app)
     expect(subject).toContain('Your verification code');
