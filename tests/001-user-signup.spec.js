@@ -45,7 +45,7 @@ test.describe("Sign-up flow", () => {
     var emailMsg = null;
     var iter = 0;
     var mult = 1;
-    while (emailMsg === null && iter < 3)
+    while (emailMsg === null && iter < 2)
     {
       await (new Promise(r => setTimeout(r, 1000 * mult)));
       emailMsg = await getLatestEmailMessage(testEmailPrefix);
