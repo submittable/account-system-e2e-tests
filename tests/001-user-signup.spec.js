@@ -49,6 +49,8 @@ test.describe("Sign-up flow", () => {
     {
       await (new Promise(r => setTimeout(r, 1000 * mult)));
       emailMsg = await getLatestEmailMessage(testEmailPrefix);
+      
+      iter += 1;
       mult * 2;
     }
 
