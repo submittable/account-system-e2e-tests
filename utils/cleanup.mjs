@@ -17,6 +17,3 @@ export const cleanup = async () => {
 
   return deleteResults.reduce((count, current) => Boolean(current) ? count += 1 : count, 0);
 }
-
-const deletedCount = await cleanup();
-console.info(`Cleanup complete - deleted ${deletedCount} test users from Auth0 tenant.`);
