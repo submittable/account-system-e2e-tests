@@ -37,7 +37,7 @@ test.describe("Sign-up flow", () => {
     continueBtn2.click();
 
     // send email verification code
-    const emailVerifBtn = page.getByRole('button');
+    const emailVerifBtn = page.getByText('Send verification code', { exact: true });
     expect(await emailVerifBtn).toBeVisible();
     emailVerifBtn.click();
 
