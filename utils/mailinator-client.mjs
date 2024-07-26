@@ -5,7 +5,9 @@ const client = new MailinatorClient(getEnvVar('MAILINATOR_API_KEY'));
 const mailinatorDomain = getEnvVar('MAILINATOR_PRIVATE_DOMAIN');
 
 // begin GET apis
-const getLatestEmailMessage = async (inboxName) => {  
+const getLatestEmailMessage = async (email) => {  
+  const inboxName = email.split('@')[0];
+  
   return await client.request(new GetInboxRequest(mailinatorDomain, inboxName)).then(response => {  
     if (response.result?.msgs.length === 0)
     {
