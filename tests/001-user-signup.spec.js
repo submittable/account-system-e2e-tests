@@ -16,8 +16,7 @@ test.describe("Sign-up flow", () => {
     // navigate to Auth0 signup page through demo app
     await page.goto(demoAppUrl);
     const signUpBtn = page.getByText('Sign Up', { exact: true });
-    expect(await signUpBtn).toBeVisible();
-    signUpBtn.click();
+    await signUpBtn.click();
 
     // fill out sign-up form & submit
     const testEmail = TEST_USER_EMAIL(browserName, mailinatorDomain);
@@ -27,19 +26,16 @@ test.describe("Sign-up flow", () => {
     await page.fill('input[name="ulp-display-name"]', 'E2E Test Account');
 
     const continueBtn1 = page.getByText('Continue', { exact: true });
-    expect(await continueBtn1).toBeVisible();
-    continueBtn1.click();
+    await continueBtn1.click();
 
     // set password for account & submit
     await page.fill('input[name="password"]', TEST_USER_PASSWORD);
     const continueBtn2 = page.getByText('Continue', { exact: true });
-    expect(await continueBtn2).toBeVisible();
-    continueBtn2.click();
+    await continueBtn2.click();
 
     // send email verification code
-    const emailVerifBtn = page.getByRole('button');
-    expect(await emailVerifBtn).toBeVisible();
-    emailVerifBtn.click();
+    const emailVerifBtn = page.getByText('Send verification code', { exact: true });
+    await emailVerifBtn.click();
 
     // get verification email from inbox (max 3 tries)
     var emailMsg = null;
@@ -71,8 +67,7 @@ test.describe("Sign-up flow", () => {
     // fill out verification code form & submit
     await page.fill('input[name="verification_code"]', verifCode);
     const continueBtn3 = page.getByText('Continue', { exact: true });
-    expect(await continueBtn3).toBeVisible();
-    continueBtn3.click();
+    await continueBtn3.click();
     
     // assertions (email subject line, body content & logged in state in demo app)
     expect(subject).toContain('Your verification code');
