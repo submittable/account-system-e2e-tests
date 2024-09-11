@@ -14,7 +14,7 @@ on:
             - production
           default: development
   schedule:
-    - cron: '0 */1 * * *' # run every hour
+    - cron: '0 12 * * *' # run daily at noon
     
 jobs:
   # BEGIN - pull request to main CI runs (targets Dev)
